@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record model="ir.ui.view" id="view_task_form">
+            <field name="name">task_manager.task.form</field>
+            <field name="model">task_manager.task</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        
+                                    
+                        <field name="state" widget="statusbar" statusbar_visible="in_progress,completed"/>
+
+                    </header>
+                    <sheet>
+                        <h2> <field name="name"/> </h2>
+
+                        <group col="2">
+
+                            <group string="Task Details">
+                                <field name="description"/>
+                            </group>
+                              
+                            <group string="Timeline">
+                                <field name="deadline"/>
+                                <field name="days_left" readonly="1"/>
+                            </group>
+
+                        </group>
+                    </sheet>
+                    
+                </form>
+            </field>
+        </record>
+
+        
+        <record model="ir.ui.view" id="view_task_kanban">
+            <field name="name">task_manager.task.kanban</field>
+            <field name="model">task_manager.task</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div>
+                                <div class="oe_kanban_global_click">
+
+                                    <h3><field name="name"/></h3>
+                                    
+                                  <strong> State : </strong>  <field name="state"/> <br/>
+                                    
+                                   <strong> Deadline : </strong> <field name="deadline"/> <br/>
+                                   
+                                   <strong> Days Left : </strong>  <field name="days_left" readonly="1"/> <br/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_task_filter_completed">
+            <field name="name">task_manager.task.filter_completed</field>
+            <field name="model">task_manager.task</field>
+            <field name="arch" type="xml">
+                <search string="Completed Tasks">
+                <field name="state"/>
+                    <filter name="completed" string="Completed" domain="[('state', '=', 'completed')]"/>
+                </search>
+            </field>
+        </record>
+
+        
+        <record id="action_task_manager" model="ir.actions.act_window">
+            <field name="name">Tasks</field>
+            <field name="res_model">task_manager.task</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="view_id" ref="task_manager.view_task_kanban"/>
+            <field name="search_view_id" ref="task_manager.view_task_filter_completed"/>
+            <field name="context">{'search_default_completed': 1}</field>
+        </record>
+
+        
+        <menuitem id="menu_task_manager" name="Tasks" action="task_manager.action_task_manager"/>
+    </data>
+</odoo>
