@@ -1,0 +1,59 @@
+<odoo>
+    <template id="report_task_document">
+        <t t-call="web.html_container">
+          <t t-call="web.external_layout">
+          <t t-if="not docs">
+            <t t-set="docs" t-value="docs.get_all_tasks()"/>
+          </t>
+          <div class="page">
+              
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Task ID</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Overdue Date</th>
+                      <th>State</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <t t-foreach="docs" t-as="o">
+                      <tr>
+                        <td><span t-esc="o.id"/></td>
+                        <td><span t-esc="o.name"/></td>
+                          <td><span t-esc="o.description"/></td>
+                          <td><span t-esc="o.deadline"/></td>
+                          <td><span t-esc="o.state"/></td>
+                      </tr>
+                    </t>
+                  </tbody>
+                  
+                </table>        
+          </div>
+        </t>
+        </t>
+    </template>
+    
+    
+    <record id="task_report" model="ir.actions.report">
+        <field name="name">Task Report</field>
+        <field name="model">task_manager.task</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">task_manager.report_task_document</field>
+        
+    </record>
+
+
+    <record id="action_print_all_tasks_report" model="ir.actions.server">
+    <field name="name">Print All Tasks Report</field>
+    <field name="model_id" ref="model_task_manager_task"/>
+    <field name="state">code</field>
+    <field name="code">model.print_all_tasks_report()</field>
+    </record>
+
+    <menuitem id="menu_print_all_tasks_report"
+            name="Print All Tasks Report"
+            parent="menu_task_manager"
+            action="task_report"/>
+</odoo>

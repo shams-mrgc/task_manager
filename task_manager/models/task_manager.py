@@ -28,5 +28,11 @@ class Task(models.Model):
     def mark_as_completed(self):
         self.write({'state': 'completed'})
 
+    def print_all_tasks_report(self):
+        return self.env.ref('task_manager.task_report').report_action(self)
+    
+    def get_all_tasks(self):
+        return self.env['task_manager.task'].search([])
+
 
 

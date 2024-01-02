@@ -9,7 +9,8 @@
                 <form>
                     <header>
                         
-                        <button string="Mark as Completed" class="oe_highlight" type="object" name="mark_as_completed"/>         
+                        <button string="Mark as Completed" class="oe_highlight" type="object" name="mark_as_completed"/>
+                        <button string="Print Task" class="btn btn-info" type="object" name="print_all_tasks_report"/>         
                         <field name="state" widget="statusbar" statusbar_visible="in_progress,completed"/>
 
                     </header>
