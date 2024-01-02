@@ -9,6 +9,7 @@
   'data':  [
 
      'views/task_view.xml',
+      'views/task_report.xml',
       'security/ir.model.access.csv',
    ],
 
