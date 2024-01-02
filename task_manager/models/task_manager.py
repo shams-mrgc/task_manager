@@ -25,7 +25,8 @@ class Task(models.Model):
                 days_left = (deadline_date - today_date).days
                 task.days_left = max(0, days_left)
 
-
+    def mark_as_completed(self):
+        self.write({'state': 'completed'})
 
 
 
