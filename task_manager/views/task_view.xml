@@ -9,7 +9,7 @@
                 <form>
                     <header>
                         
-                                    
+                        <button string="Mark as Completed" class="oe_highlight" type="object" name="mark_as_completed"/>         
                         <field name="state" widget="statusbar" statusbar_visible="in_progress,completed"/>
 
                     </header>
